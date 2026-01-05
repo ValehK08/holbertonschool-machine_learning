@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """dataframe -> array"""
 
-import pandas as pd
-
 
 def array(df):
     """
