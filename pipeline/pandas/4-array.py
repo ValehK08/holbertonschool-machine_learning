@@ -8,6 +8,6 @@ def array(df):
     output -> array
     """
 
-    df = df.iloc[:-10]
+    df = df.tail(10)
     arr = df.to_numpy()
     return arr
