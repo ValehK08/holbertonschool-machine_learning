@@ -8,5 +8,5 @@ def slice(df):
     output -> sliced df
     """
 
-    df = df[['High', 'Low', 'Close', 'Volume_BTC']].iloc[::60, :]
+    df = df.loc[::60, ['High', 'Low', 'Close', 'Volume_BTC']]
     return df
