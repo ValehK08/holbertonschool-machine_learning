@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """slice the dataframe"""
 
-import pandas as pd
-
 
 def slice(df):
     """
