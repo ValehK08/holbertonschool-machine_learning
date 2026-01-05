@@ -2,6 +2,8 @@
 """ FROM NUMPY """
 
 import pandas as pd
+
+
 def from_numpy(array):
     """FROM NUMPY ARRAY TO DATAFRAME"""
 
