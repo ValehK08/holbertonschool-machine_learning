@@ -8,6 +8,6 @@ def array(df):
     output -> array
     """
 
-    df = df.tail(10)
+    df = df[['High', 'Close']].tail(10)
     arr = df.to_numpy()
     return arr
