@@ -9,4 +9,5 @@ def rename(df):
 
     df.rename(columns={'Timestamp': 'Datetime'})
     df['Datetime'] = pd.to_datetime(df['Datetime'], unit='s')
-    return df[['Datetime', 'Close']]
+    df = df.loc[:, ['Datetime', 'Close']]
+    return df
