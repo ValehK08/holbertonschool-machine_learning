@@ -9,6 +9,5 @@ def from_file(filename, delimiter):
     function output -> dataframe
     """
 
-    
     df = pd.read_csv(filename, delimiter=delimiter)
     return df
