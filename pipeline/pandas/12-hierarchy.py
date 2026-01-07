@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ 12-hierarchy.py """
-
+import pandas as pd
 
 def hierarchy(df1, df2):
     """
