@@ -7,7 +7,7 @@ def fill(df):
     input -> df
     output -> df preprocessed null values
     """
-    
+
     df = df.drop(columns=['Weighted_Price'])
     df['Close'] = df['Close'].ffill()
     df.loc[df['High'].isnull(), 'High'] = df['Close']
