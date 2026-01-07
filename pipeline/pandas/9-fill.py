@@ -13,5 +13,6 @@ def fill(df):
     df.loc[df['High'].isnull(), 'High'] = df['Close']
     df.loc[df['Open'].isnull(), 'Open'] = df['Close']
     df.loc[df['Low'].isnull(), 'Low'] = df['Close']
-    df[['Volume_(BTC)', 'Volume_(Currency)']].fillna(0, inplace=True)
+    cols = ['Volume_(BTC)', 'Volume_(Currency)']
+    df[cols] = df[cols]fillna(0)
     return df
