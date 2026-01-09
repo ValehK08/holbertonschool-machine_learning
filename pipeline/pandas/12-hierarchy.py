@@ -2,6 +2,7 @@
 """ 12-hierarchy.py """
 import pandas as pd
 
+
 def hierarchy(df1, df2):
     """
     input -> df1, df2
