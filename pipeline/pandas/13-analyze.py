@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """ 13-hierarchy """
-import pandas as pd
 
 
 def analyze(df):
