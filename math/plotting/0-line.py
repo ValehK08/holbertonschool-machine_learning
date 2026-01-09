@@ -8,3 +8,5 @@ def line():
     plt.figure(figsize=(6.4, 4.8))
 
     plt.plot(y, color='r')
+    plt.axis([0, 10, None, None])
+    plt.show()
