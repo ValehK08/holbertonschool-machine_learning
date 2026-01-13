@@ -10,7 +10,7 @@ def poly_integral(poly, C=0):
     elif not isinstance(C, (int, float)):
         return None
     else:
-        poly = [poly[x]/(x+1) for x in range(len(poly))
+        poly = [poly[x]/(x+1) for x in range(len(poly))]
         for k in range(len(poly)):
             if int(poly[k]) == poly[k]:
                 poly[k] = int(k)
