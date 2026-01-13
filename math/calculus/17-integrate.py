@@ -13,6 +13,6 @@ def poly_integral(poly, C=0):
         poly = [poly[x]/(x+1) for x in range(len(poly))]
         for k in range(len(poly)):
             if int(poly[k]) == poly[k]:
-                poly[k] = int(k)
+                poly[k] = int(poly[k])
         poly.insert(0, C)
         return poly
