@@ -15,4 +15,6 @@ def poly_integral(poly, C=0):
             if int(poly[k]) == poly[k]:
                 poly[k] = int(poly[k])
         poly.insert(0, C)
+        if poly[-1] == 0:
+            return poly[:-1]
         return poly
