@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """ SIZE ME PLEASE """
-import numpy as np
+a = []
+
 
 def matrix_shape(matrix):
     """ Return matrix shape """
-    
-    return list((np.array(matrix)).shape)
+    global a
+    a.append(len(matrix))
+    if isinstance(matrix[0], list):
+        matrix_shape(matrix[0])
+    return a
