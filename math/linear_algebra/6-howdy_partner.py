@@ -4,5 +4,5 @@
 
 def cat_arrays(arr1, arr2):
     """ cat arrays """
-    
+
     return arr1 + arr2
