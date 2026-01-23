@@ -4,6 +4,8 @@
 
 def mat_mul(mat1, mat2):
     """ matrix multiplication """
+    if len(mat1[0]) != len(mat2):
+        return None
     a = []
     for i in list(map(
             lambda x: [
