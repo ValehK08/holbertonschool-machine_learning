@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ bracinthelements """
 
+
 def np_elementwise(mat1, mat2):
     """np_elementwise"""
 
