@@ -5,4 +5,4 @@
 def matrix_transpose(matrix):
     """ TRANSPOSE IT """
 
-    return list(zip(*matrix))
+    return [list(a) for a in zip(*matrix)]
