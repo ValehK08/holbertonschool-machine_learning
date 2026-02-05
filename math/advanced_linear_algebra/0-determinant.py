@@ -5,17 +5,17 @@
 def determinant(matrix):
     """ Find determinant of matrix """
 
+    if matrix == [[]]:
+        return 1
+    
+    if matrix == []:
+        return 0
+
     if not isinstance(matrix[0], list):
         raise TypeError('matrix must be a list of lists') 
     
     if len(matrix) != len(matrix[0]):
         raise ValueError('matrix must be a square matrix')
-
-    if matrix == [[]]:
-        det = 1
-    
-    if matrix == []:
-        det = 0
     
     if len(matrix) == 1:
         det = matrix[0][0]
