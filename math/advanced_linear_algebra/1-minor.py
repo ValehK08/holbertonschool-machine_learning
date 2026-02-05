@@ -22,7 +22,7 @@ def minor(matrix):
                 for row in (matrix[:i]+matrix[i+1:])
                 ]))
     return m
-    
+
 
 def determinant(matrix):
     """ Find determinant """
