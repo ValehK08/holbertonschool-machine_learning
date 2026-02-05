@@ -22,7 +22,7 @@ def determinant(matrix):
 
     det = 0
     for i in range(len(matrix)):
-        minor = [row[:i] + row[i + 1:] for i in matrix[1:]]
+        minor = [k[:i] + k[i + 1:] for k in matrix[1:]]
         det += ((-1) ** i) * matrix[0][i] * determinant(minor)
 
     return det
