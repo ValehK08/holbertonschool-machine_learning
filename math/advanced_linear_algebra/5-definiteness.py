@@ -8,6 +8,9 @@ def definiteness(matrix):
 
     if type(matrix) is not np.ndarray:
         raise TypeError('matrix must be a numpy.ndarray')
+    
+    if not np.array_equal(matrix, matrix.T):
+        return None
 
     if len(matrix.shape) < 2:
         return None
