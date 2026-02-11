@@ -2,6 +2,10 @@
 """ Norm """
 
 
+def erf(pi, e, x):
+    """ Approximation of erf """
+
+    return (2 / (pi ** 0.5)) * (x - ((x ** 3) / 3) + ((x ** 5) / 10) - ((x ** 7) / 42) + ((x ** 9) / 216))
 class Normal:
     """ Normal Distribution """
 
@@ -43,3 +47,11 @@ class Normal:
         f1 = (1 / (self.stddev * (2 * pi) ** 0.5))
         f2 = (e ** ((-1 / 2) * ((x - self.mean) / (self.stddev)) ** 2))
         return f1 * f2
+
+    def cdf(self, x):
+        """ Cumulative Distribution Function """
+
+        pi = 3.1415926536
+        e = 2.7182818285
+
+        return (1 / 2) * (1 + erf((x - self.mean)/(self.stddev * (2 ** 0.5))))
