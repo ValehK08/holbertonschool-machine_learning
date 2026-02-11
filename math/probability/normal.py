@@ -23,4 +23,4 @@ class Normal:
             s = 0
             for i in data:
                 s += (self.mean - i) ** 2
-            self.stddev = float(s / len(data))
+            self.stddev = float(s / len(data)) ** 0.5
