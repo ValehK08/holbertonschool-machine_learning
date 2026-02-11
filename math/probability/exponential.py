@@ -22,14 +22,8 @@ class Exponential:
     def pdf(self, x):
         """ Probability Distribution Function """
 
-        if not isinstance(k, int):
-            k = int(k)
-        if k < 0:
+        if x < 0:
             return 0
 
         e = 2.7182818285
-        f = 1
-        for i in range(1, k + 1):
-            f *= i
-
-        return ((self.lambtha ** k) * (e ** (-1 * self.lambtha))) / f
+        return self.lambtha * (e ** (-1 * self.lambtha * x))
