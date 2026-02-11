@@ -28,7 +28,7 @@ class Binomial:
             self.p = float(1 - ((stdev ** 2) / mean))
             self.n = int(round(float(mean / self.p)))
             self.p = float(mean / self.n)
-    
+
     def pmf(self, k):
         """ Probability Mass Function """
 
@@ -36,7 +36,7 @@ class Binomial:
             k = int(k)
         if k < 0 or k > self.n:
             return 0
-        
+
         nf = 1
         kf = 1
         n_kf = 1
@@ -46,6 +46,6 @@ class Binomial:
             kf *= i
         for i in range(1, self.n - k + 1):
             n_kf *= i
-        
+
         nk = nf / (kf * n_kf)
         return nk * (self.p ** k) * ((1 - self.p) ** (self.n - k))
