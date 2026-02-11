@@ -4,7 +4,7 @@
 
 class Poisson:
     """ Poisson Class """
-
+    
     def __init__(self, data=None, lambtha=1.0):
         """ init """
 
