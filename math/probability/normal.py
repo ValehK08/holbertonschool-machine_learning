@@ -9,9 +9,9 @@ class Normal:
         """ init """
 
         if data is None:
-            if stdev <= 0:
+            if stddev <= 0:
                 raise ValueError('stddev must be a positive value')
-            self.stdev = float(stdev)
+            self.stddev = float(stddev)
             self.mean = float(mean)
         else:
             if not isinstance(data, list):
@@ -23,4 +23,4 @@ class Normal:
             s = 0
             for i in data:
                 s += (self.mean - i) ** 2
-            self.stdev = float(s / len(data))
+            self.stddev = float(s / len(data))
