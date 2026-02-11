@@ -4,7 +4,7 @@
 
 class Exponential:
     """ Exponential Distribution """
-    e = 2.7182818285
+
 
     def __init__(self, data=None, lambtha=1.0):
         """ init """
@@ -26,6 +26,7 @@ class Exponential:
         if x < 0:
             return 0
 
+        e = 2.7182818285
         return self.lambtha * (e ** (-1 * self.lambtha * x))
 
     def cdf(self, x):
@@ -34,4 +35,5 @@ class Exponential:
         if x < 0:
             return 0
 
+        e = 2.7182818285
         return 1 - (e ** (-1 * self.lambtha * x))
