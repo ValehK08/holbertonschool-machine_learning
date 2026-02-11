@@ -54,4 +54,4 @@ class Normal:
         pi = 3.1415926536
         e = 2.7182818285
 
-        return (1 / 2) * (1 + erf((x - self.mean)/(self.stddev * (2 ** 0.5))))
+        return (1 / 2) * (1 + erf(pi, e, (x - self.mean)/(self.stddev * (2 ** 0.5))))
