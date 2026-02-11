@@ -30,7 +30,7 @@ class Normal:
 
         return float((x - self.mean) / self.stddev)
 
-    def x_score(self, z):
+    def x_value(self, z):
         """ x-value """
 
         return (z * self.stddev) + self.mean
