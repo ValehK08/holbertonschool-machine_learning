@@ -28,7 +28,7 @@ class Exponential:
 
         return self.lambtha * (e ** (-1 * self.lambtha * x))
 
-    def cdf(self, x)
+    def cdf(self, x):
     """ Cumulative Distribution Function """
 
     if x < 0:
