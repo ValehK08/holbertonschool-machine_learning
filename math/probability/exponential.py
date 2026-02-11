@@ -18,3 +18,18 @@ class Exponential:
             if len(data) < 2:
                 raise ValueError('data must contain multiple values')
             self.lambtha = float(len(data) / sum(data))
+    
+    def pdf(self, x):
+        """ Probability Distribution Function """
+
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0:
+            return 0
+
+        e = 2.7182818285
+        f = 1
+        for i in range(1, k + 1):
+            f *= i
+
+        return ((self.lambtha ** k) * (e ** (-1 * self.lambtha))) / f
