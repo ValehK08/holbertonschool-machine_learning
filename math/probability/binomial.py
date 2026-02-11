@@ -49,3 +49,16 @@ class Binomial:
 
         nk = nf / (kf * n_kf)
         return nk * (self.p ** k) * ((1 - self.p) ** (self.n - k))
+
+    def cdf(self, k):
+        """ Cumulative Distribution Function """
+
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0 or k > self.n:
+            return 0
+
+        s = 0
+        for i in range(0, k + 1):
+            s += self.pmf(i)
+        return s
