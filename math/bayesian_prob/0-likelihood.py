@@ -6,6 +6,8 @@ import numpy as np
 def likelihood(x, n, P):
     """ Likelihood Func """
 
+    if not isinstance(n, int):
+        raise ValueError('n must be a positive integer')
     if n <= 0:
         raise ValueError('n must be a positive integer')
     if not x >= 0:
