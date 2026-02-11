@@ -26,5 +26,5 @@ class Binomial:
                 stdev += (mean - i) ** 2
             stdev = (stdev / len(data)) ** 0.5
             self.p = float(1 - ((stdev ** 2) / mean))
-            self.n = round(float(mean / self.p))
+            self.n = int(round(float(mean / self.p))_
             self.p = float(mean / self.n)
