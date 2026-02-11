@@ -5,7 +5,6 @@
 class Exponential:
     """ Exponential Distribution """
 
-
     def __init__(self, data=None, lambtha=1.0):
         """ init """
 
