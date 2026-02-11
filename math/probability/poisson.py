@@ -33,3 +33,21 @@ class Poisson:
             f *= i
 
         return ((self.lambtha ** k) * (e ** (-1 * self.lambtha))) / f
+
+    def cdf(self, k):
+        """ Cumulative Distribution Function """
+
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0:
+            return 0
+
+        e = 2.7182818285
+        s = 0
+        for i in range(0, k + 1):
+            f = 1
+            for j in range(1, i + 1):
+                f *= j
+            s += ((self.lambtha ** i) * (e ** (-1 * self.lambtha))) / f
+
+        return s
