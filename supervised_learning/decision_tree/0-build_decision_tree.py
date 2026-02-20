@@ -4,6 +4,7 @@ import numpy as np
 
 
 class Node:
+    """ Node """
     def __init__(
         self,
         feature=None,
@@ -34,6 +35,7 @@ class Node:
 
 
 class Leaf(Node):
+    """ Leaf """
     def __init__(self, value, depth=None):
         """ initialize the leaf """
         super().__init__()
@@ -47,6 +49,7 @@ class Leaf(Node):
 
 
 class Decision_Tree():
+    """ Decision Tree """
     def __init__(
         self,
         max_depth=10,
