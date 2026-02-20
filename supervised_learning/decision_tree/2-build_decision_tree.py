@@ -45,7 +45,10 @@ class Node:
     def left_child_add_prefix(self, text):
         """ left child add prefix """
         lines = text.split("\n")
-        new_text = "    +--" + lines[0] + "\n"
+        if "node" in text:
+            new_text = "    +---> " + lines[0] + "\n"
+        else:
+            new_text = "       +--" + lines[0] + "\n"
         for x in lines[1:]:
             new_text += ("    |  " + x) + "\n"
         return (new_text)
@@ -53,7 +56,10 @@ class Node:
     def right_child_add_prefix(self, text):
         """ right child add prefix """
         lines = text.split("\n")
-        new_text = "    +--" + lines[0] + "\n"
+        if "node" in text:
+            new_text = "    +---> " + lines[0] + "\n"
+        else:
+            new_text = "       +--" + lines[0] + "\n"
         for x in lines[1:]:
             new_text += ("       " + x) + "\n"
         return (new_text)
@@ -63,9 +69,7 @@ class Node:
         n = "root" if self.is_root else "node"
         s = f"{n} [feature={self.feature}, threshold={self.threshold}]\n"
         if self.left_child:
-            s += self.left_child_add_prefix(
-                self.left_child.__str__().strip()
-            )
+            s += self.left_child_add_prefix(self.left_child.__str__().strip())
         if self.right_child:
             s += self.right_child_add_prefix(
                 self.right_child.__str__().strip()
