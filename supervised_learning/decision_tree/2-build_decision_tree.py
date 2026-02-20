@@ -14,7 +14,7 @@ class Node:
         is_root=False,
         depth=0
     ):
-        """ initialize the node """
+        """ Initialize the node """
         self.feature = feature
         self.threshold = threshold
         self.left_child = left_child
@@ -25,7 +25,7 @@ class Node:
         self.depth = depth
 
     def max_depth_below(self):
-        """ maximum depth below the current Node """
+        """ Maximum depth below the current Node """
         max_d = self.depth
         if self.left_child:
             max_d = max(max_d, self.left_child.max_depth_below())
@@ -34,7 +34,7 @@ class Node:
         return max_d
 
     def count_nodes_below(self, only_leaves=False):
-        """ count nodes """
+        """ Count nodes """
         c = int(not only_leaves)
         if self.left_child:
             c += self.left_child.count_nodes_below(only_leaves=only_leaves)
@@ -43,29 +43,23 @@ class Node:
         return c
 
     def left_child_add_prefix(self, text):
-        """ left child add prefix """
+        """ left """
         lines = text.split("\n")
-        if "node" in text:
-            new_text = "    +---> " + lines[0] + "\n"
-        else:
-            new_text = "       +--" + lines[0] + "\n"
+        new_text = "    +---> " + lines[0] + "\n"
         for x in lines[1:]:
             new_text += ("    |  " + x) + "\n"
-        return (new_text)
+        return new_text
 
     def right_child_add_prefix(self, text):
-        """ right child add prefix """
+        """ right """
         lines = text.split("\n")
-        if "node" in text:
-            new_text = "    +---> " + lines[0] + "\n"
-        else:
-            new_text = "       +--" + lines[0] + "\n"
+        new_text = "    +---> " + lines[0] + "\n"
         for x in lines[1:]:
-            new_text += ("       " + x) + "\n"
-        return (new_text)
+            new_text += ("           " + x) + "\n"
+        return new_text
 
     def __str__(self):
-        """ str """
+        """ __str__ """
         n = "root" if self.is_root else "node"
         s = f"{n} [feature={self.feature}, threshold={self.threshold}]\n"
         if self.left_child:
@@ -80,23 +74,23 @@ class Node:
 class Leaf(Node):
     """ Leaf """
     def __init__(self, value, depth=None):
-        """ initialize the leaf """
+        """ Initialize the leaf """
         super().__init__()
         self.value = value
         self.is_leaf = True
         self.depth = depth
 
     def max_depth_below(self):
-        """ max_depth_below """
+        """ Max depth below the leaf (its own depth) """
         return self.depth
 
     def count_nodes_below(self, only_leaves=False):
-        """ count nodes """
+        """ Count nodes below the leaf (always 1 for a leaf) """
         return 1
 
     def __str__(self):
-        """ str """
-        return (f"-> leaf [value={self.value}]")
+        """ String representation of the leaf """
+        return (f"leaf [value={self.value}]")
 
 
 class Decision_Tree():
@@ -109,7 +103,7 @@ class Decision_Tree():
         split_criterion="random",
         root=None
     ):
-        """ initialize a tree """
+        """ Initialize a tree """
         self.rng = np.random.default_rng(seed)
         if root:
             self.root = root
@@ -123,13 +117,13 @@ class Decision_Tree():
         self.predict = None
 
     def depth(self):
-        """ depth """
+        """ Depth of the tree """
         return self.root.max_depth_below()
 
     def count_nodes(self, only_leaves=False):
-        """ count nodes """
+        """ Count nodes in the tree """
         return self.root.count_nodes_below(only_leaves=only_leaves)
 
     def __str__(self):
-        """ str """
+        """ String representation of the tree """
         return self.root.__str__()
