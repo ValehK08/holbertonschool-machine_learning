@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """ 5-build_decision_tree.py """
+
 import numpy as np
 
 
 class Node:
-    """Node"""
+    """ Node class """
 
     def __init__(self,
                  feature=None,
@@ -12,7 +13,7 @@ class Node:
                  left_child=None,
                  right_child=None,
                  is_root=False, depth=0):
-        """__init__"""
+        """ __init__ method """
         self.feature = feature
         self.threshold = threshold
         self.left_child = left_child
@@ -23,7 +24,7 @@ class Node:
         self.depth = depth
 
     def max_depth_below(self):
-        """max_depth_below"""
+        """ max_depth_below method """
         if self.is_leaf:
             return self.depth
         else:
@@ -33,7 +34,7 @@ class Node:
             )
 
     def count_nodes_below(self, only_leaves=False):
-        """count_nodes_below"""
+        """ count_nodes_below method """
         left = self.left_child.count_nodes_below(only_leaves=only_leaves)
         right = self.right_child.count_nodes_below(only_leaves=only_leaves)
         if only_leaves:
@@ -42,7 +43,7 @@ class Node:
             return 1 + left + right
 
     def __str__(self):
-        """__str__"""
+        """ __str__ method """
         if self.is_root:
             prefix = "root"
         else:
@@ -55,25 +56,25 @@ class Node:
         return result
 
     def left_child_add_prefix(self, text):
-        """left_child_add_prefix"""
+        """ left_child_add_prefix method """
         lines = text.split("\n")
         new_text = "    +--" + lines[0] + "\n"
         for x in lines[1:]:
             if x.strip():
                 new_text += ("    |  " + x) + "\n"
-        return (new_text)
+        return new_text
 
     def right_child_add_prefix(self, text):
-        """right_child_add_prefix"""
+        """ right_child_add_prefix method """
         lines = text.split("\n")
         new_text = "    +--" + lines[0] + "\n"
         for x in lines[1:]:
             if x.strip():
                 new_text += ("       " + x) + "\n"
-        return (new_text)
+        return new_text
 
     def get_leaves_below(self):
-        """get_leaves_below"""
+        """ get_leaves_below method """
         leaves = []
         if self.left_child:
             leaves.extend(self.left_child.get_leaves_below())
@@ -82,7 +83,7 @@ class Node:
         return leaves
 
     def update_bounds_below(self):
-        """update_bounds_below"""
+        """ update_bounds_below method """
         if self.is_root:
             self.upper = {0: np.inf}
             self.lower = {0: -1*np.inf}
@@ -102,7 +103,7 @@ class Node:
             child.update_bounds_below()
 
     def update_indicator(self):
-        """update_indicator"""
+        """ update_indicator method """
         def is_large_enough(x):
             return np.all(
                 np.array(
@@ -123,38 +124,38 @@ class Node:
 
 
 class Leaf(Node):
-    """Leaf"""
+    """ Leaf class """
 
     def __init__(self, value, depth=None):
-        """__init__"""
+        """ __init__ method """
         super().__init__()
         self.value = value
         self.is_leaf = True
         self.depth = depth
 
     def max_depth_below(self):
-        """max_depth_below"""
+        """ max_depth_below method """
         return self.depth
 
     def count_nodes_below(self, only_leaves=False):
-        """count_nodes_below"""
+        """ count_nodes_below method """
         return 1
 
     def __str__(self):
-        """__str__"""
-        return (f"-> leaf [value={self.value}]")
+        """ __str__ method """
+        return f"-> leaf [value={self.value}]"
 
     def get_leaves_below(self):
-        """get_leaves_below"""
+        """ get_leaves_below method """
         return [self]
 
     def update_bounds_below(self):
-        """update_bounds_below"""
+        """ update_bounds_below method """
         pass
 
 
 class Decision_Tree():
-    """Decision_Tree"""
+    """ Decision_Tree class """
 
     def __init__(self,
                  max_depth=10,
@@ -163,7 +164,7 @@ class Decision_Tree():
                  split_criterion="random",
                  root=None
                  ):
-        """__init__"""
+        """ __init__ method """
         self.rng = np.random.default_rng(seed)
         if root:
             self.root = root
@@ -177,21 +178,21 @@ class Decision_Tree():
         self.predict = None
 
     def depth(self):
-        """depth"""
+        """ depth method """
         return self.root.max_depth_below()
 
     def count_nodes(self, only_leaves=False):
-        """count_nodes"""
+        """ count_nodes method """
         return self.root.count_nodes_below(only_leaves=only_leaves)
 
     def __str__(self):
-        """__str__"""
+        """ __str__ method """
         return self.root.__str__()
 
     def get_leaves(self):
-        """get_leaves"""
+        """ get_leaves method """
         return self.root.get_leaves_below()
 
     def update_bounds(self):
-        """update_bounds"""
+        """ update_bounds method """
         self.root.update_bounds_below()
