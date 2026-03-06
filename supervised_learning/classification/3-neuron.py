@@ -36,7 +36,7 @@ class Neuron:
         """ forward propagation """
         self.__A = (1 / (1 + np.exp(-(np.dot(self.__W, X) + self.__b))))
         return self.__A
-    
+
     def cost(self, Y, A):
         """ cost function """
         m = Y.shape[1]
