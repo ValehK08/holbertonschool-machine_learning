@@ -36,10 +36,12 @@ class Neuron:
         """ forward propagation """
         self.__A = (1 / (1 + np.exp(-(np.dot(self.__W, X) + self.__b))))
         return self.__A
-
+    
     def cost(self, Y, A):
         """ cost function """
         m = Y.shape[1]
-        return -(1 / m) * np.sum(
-            Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A)
-        )
+        return -(1 / m) * np.sum(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
+    
+    def evaluate(self, X, Y):
+        """ evaluate """
+        return self.forward_prop(X), self.cost(Y, self.forward_prop(X))
