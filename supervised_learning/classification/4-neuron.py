@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" 4-neuron.py """
+""" 3-neuron.py """
 import numpy as np
 
 
@@ -46,4 +46,5 @@ class Neuron:
 
     def evaluate(self, X, Y):
         """ evaluate """
-        return self.forward_prop(X), self.cost(Y, self.forward_prop(X))
+        pred = (self.forward_prop(X) >= 0.5).astype(int)
+        return pred, self.cost(Y, self.forward_prop(X))
