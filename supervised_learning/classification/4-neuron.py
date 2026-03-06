@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" 3-neuron.py """
+""" 4-neuron.py """
 import numpy as np
 
 
@@ -43,3 +43,7 @@ class Neuron:
         return -(1 / m) * np.sum(
             Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A)
         )
+
+    def evaluate(self, X, Y):
+        """ evaluate """
+        return self.forward_prop(X), self.cost(Y, self.forward_prop(X))
