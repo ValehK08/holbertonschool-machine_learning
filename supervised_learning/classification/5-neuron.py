@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" 4-neuron.py """
+""" 5-neuron.py """
 import numpy as np
 
 
@@ -48,3 +48,12 @@ class Neuron:
         """ evaluate """
         pred = (self.forward_prop(X) >= 0.5).astype(int)
         return pred, self.cost(Y, self.forward_prop(X))
+
+    def gradient_descent(self, X, Y, A, alpha=0.05):
+        """ gradient descent """
+        m = Y.shape[1]
+        dZ = A - Y
+        dW = (1 / m) * np.dot(dZ, X.T)
+        db = (1 / m) * np.sum(dZ)
+        self.__W = self.__W - alpha * dW
+        self.__b = self.__b - alpha * db
