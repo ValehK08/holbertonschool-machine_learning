@@ -2,9 +2,10 @@
 """ 3-one_hot.py """
 import tensorflow.keras as K
 
+
 def one_hot(labels, classes=None):
     """ one hot encoding """
-    one_hot_matrix = np.zeros((labels.shape[0], np.max(labels) + 1))
+    one_hot_matrix = np.zeros((labels.shape[0], max(list(labels)) + 1))
 
     for i in range(labels.shape[0]):
         one_hot_matrix[i, labels[i]] = 1
