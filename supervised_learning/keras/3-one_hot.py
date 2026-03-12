@@ -5,9 +5,5 @@ import tensorflow.keras as K
 
 def one_hot(labels, classes=None):
     """ one hot encoding """
-    one_hot_matrix = np.zeros((labels.shape[0], max(list(labels)) + 1))
-
-    for i in range(labels.shape[0]):
-        one_hot_matrix[i, labels[i]] = 1
-
-    return one_hot_matrix
+    
+    return K.utils.to_categorical(labels, num_classes=classes)
