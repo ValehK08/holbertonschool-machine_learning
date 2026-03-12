@@ -14,6 +14,6 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
             kernel_regularizer=K.regularizers.l2(lambtha)
         ))
         if i != len(layers) - 1:
-            par.append(K.layers.Dropout(keep_prob))
+            par.append(K.layers.Dropout(1 - keep_prob))
     model = K.Sequential(par)
     return model
