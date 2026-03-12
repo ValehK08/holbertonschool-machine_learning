@@ -87,7 +87,7 @@ class NeuralNetwork:
         self.__b2 = self.b2 - (alpha * d__b2)
         self.__W1 = self.W1 - (alpha * d__W1)
         self.__b1 = self.b1 - (alpha * d__b1)
-    
+
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """ train """
         if type(iterations) is not int:
