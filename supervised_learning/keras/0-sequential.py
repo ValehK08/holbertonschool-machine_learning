@@ -13,6 +13,7 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
             activation=activations[i],
             kernel_regularizer=K.regularizers.l2(lambtha)
         ))
-        par.append(K.layers.Dropout(keep_prob))
+        if i != len(layers) - 1:
+            par.append(K.layers.Dropout(keep_prob))
     model = K.Sequential(par)
     return model
