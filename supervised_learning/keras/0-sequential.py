@@ -11,7 +11,7 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
         par.append(K.layers.Dense(
             units=layers[i],
             activation=activations[i],
-            kernel_regularizer=K.regularizers.l2(1e-4)
+            kernel_regularizer=K.regularizers.l2(lambtha)
         ))
         par.append(K.layers.Dropout(keep_prob))
     model = K.Sequential(par)
