@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" 12-neural_network.py """
+""" 13-neural_network.py """
 import numpy as np
 
 
@@ -74,3 +74,16 @@ class NeuralNetwork:
         cost = self.cost(Y, A2)
         prediction = np.where(A2 >= 0.5, 1, 0)
         return (prediction, cost)
+
+    def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
+        """ gradient descent """
+        m = Y.shape[1]
+        d__W2 = (1 / m) * (np.matmul(A2 - Y, A1.transpose()))
+        d__b2 = (1 / m) * (np.sum(A2 - Y, axis=1, keepdims=True))
+        dz1 = (np.matmul(self.W2.transpose(), A2 - Y)) * (A1 * (1 - A1))
+        d__W1 = (1 / m) * (np.matmul(dz1, X.transpose()))
+        d__b1 = (1 / m) * (np.sum(dz1, axis=1, keepdims=True))
+        self.__W2 = self.W2 - (alpha * d__W2)
+        self.__b2 = self.b2 - (alpha * d__b2)
+        self.__W1 = self.W1 - (alpha * d__W1)
+        self.__b1 = self.b1 - (alpha * d__b1)
