@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-""" 9-neural_network.py """
+""" 10-neural_network.py """
 import numpy as np
 
 
 class NeuralNetwork:
-    """ Neural Network Class """
+    """ Neural Network class """
 
     def __init__(self, nx, nodes):
         """ initialize """
-
         if type(nx) is not int:
             raise TypeError("nx must be an integer")
         if nx < 1:
@@ -53,3 +52,9 @@ class NeuralNetwork:
     def A2(self):
         """ getter """
         return (self.__A2)
+
+    def forward_prop(self, X):
+        """ forward prop """
+        self.__A1 = 1 / (1 + (np.exp(-1 * np.matmul(self.W1, X) + self.b1)))
+        self.__A2 = 1 / (1 + (np.exp(-1 * np.matmul(self.W2, self.__A1) + self.b2)))
+        return (self.A1, self.A2)
