@@ -7,8 +7,8 @@ def train_model(network, data, labels, batch_size, epochs, verbose=True, shuffle
     """ train model """
 
     history = network.fit(
-        data,
-        labels,
+        x=data,
+        y=labels,
         batch_size=batch_size,
         epochs=epochs,
         verbose=verbose,
