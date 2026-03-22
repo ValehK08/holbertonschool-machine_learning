@@ -146,7 +146,7 @@ class DeepNeuralNetwork:
         return self.evaluate(X, Y)
 
     def save(self, filename):
-        """save"""
+        """save function"""
         if not filename.endswith(".pkl"):
             filename += ".pkl"
         with open(filename, "wb") as f:
@@ -155,7 +155,7 @@ class DeepNeuralNetwork:
 
     @staticmethod
     def load(filename):
-        """load"""
+        """loading func"""
         if not os.path.exists(filename):
             return None
         with open(filename, "rb") as f:
