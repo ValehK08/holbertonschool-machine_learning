@@ -9,7 +9,7 @@ def train_model(network, data, labels, batch_size,
                 learning_rate_decay=False, alpha=0.1, decay_rate=1,
                 save_best=False, filepath=None,
                 verbose=True, shuffle=False):
-    """train_model"""
+    """Train model"""
     callbacks = []
     if early_stopping and validation_data is not None:
         stop = K.callbacks.EarlyStopping(
@@ -20,12 +20,12 @@ def train_model(network, data, labels, batch_size,
         callbacks.append(stop)
 
     if learning_rate_decay and validation_data is not None:
-        def scheduler(epoch, lr):
-            """schedule""""
+        def schedule(epoch, lr):
+            """Inverse time decay: new_lr = alpha / (1 + decay_rate * epoch)"""
             new_lr = alpha / (1 + decay_rate * epoch)
             return new_lr
 
-        lr_decay = K.callbacks.LearningRateScheduler(scheduler, verbose=1)
+        lr_decay = K.callbacks.LearningRateScheduler(schedule, verbose=1)
         callbacks.append(lr_decay)
 
     if save_best and filepath is not None:
