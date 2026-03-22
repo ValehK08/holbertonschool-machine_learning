@@ -8,10 +8,10 @@ import pickle
 
 
 class DeepNeuralNetwork:
-    """DNN"""
+    """DNN class"""
 
     def __init__(self, nx, layers):
-        """init"""
+        """init func"""
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
