@@ -72,7 +72,7 @@ class DeepNeuralNetwork:
         return self.__cache['A{}'.format(self.__L)], self.__cache
 
     def cost(self, Y, A):
-        """cost"""
+        """cost function"""
         m = Y.shape[1]
         cost = -np.sum(Y * np.log(A + 1e-15)) / m
         return cost
