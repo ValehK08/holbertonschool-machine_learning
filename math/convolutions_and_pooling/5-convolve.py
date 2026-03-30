@@ -2,6 +2,7 @@
 """5-convolve.py"""
 import numpy as np
 
+
 def convolve(images, kernels, padding='same', stride=(1, 1)):
     """convolve it"""
     m, h, w, c = images.shape
