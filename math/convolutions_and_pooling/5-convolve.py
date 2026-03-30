@@ -29,6 +29,8 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
     for y in range(out_h):
         for x in range(out_w):
             img_slice = images_padded[:, y*sh:y*sh+kh, x*sw:x*sw+kw, :]
-            output[:, y, x, :] = np.tensordot(img_slice, kernels, axes=([1,2,3], [0,1,2]))
+            output[:, y, x, :] = np.tensordot(
+                img_slice, kernels, axes=([1, 2, 3], [0, 1, 2])
+            )
 
     return output
