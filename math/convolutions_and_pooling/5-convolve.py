@@ -3,8 +3,8 @@
 import numpy as np
 
 
-def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
-    """convolve channels"""
+def convolve(images, kernel, padding='same', stride=(1, 1)):
+    """It's a bit convoluted"""
     c_images, images_h, images_w, _ = images.shape
     f_height = kernel.shape[0]
     f_width = kernel.shape[1]
