@@ -2,34 +2,33 @@
 """5-convolve.py"""
 import numpy as np
 
+def convolve(images, kernels, padding='same', stride=(1, 1)):
+    """convolve it"""
+    m, h, w, c = images.shape
+    kh, kw, kc, nc = kernels.shape
+    sh, sw = stride
 
-def convolve(images, kernel, padding='same', stride=(1, 1)):
-    """It's a bit convoluted"""
-    c_images, images_h, images_w, _ = images.shape
-    f_height = kernel.shape[0]
-    f_width = kernel.shape[1]
-    stride_h, stride_w = stride
+    if isinstance(padding, tuple):
+        ph, pw = padding
+    elif padding == 'same':
+        ph = ((h - 1) * sh + kh - h) // 2 + (((h - 1) * sh + kh - h) % 2)
+        pw = ((w - 1) * sw + kw - w) // 2 + (((w - 1) * sw + kw - w) % 2)
+    elif padding == 'valid':
+        ph, pw = 0, 0
 
-    if padding == "same":
-        padding_h = ((images_h - 1) * stride_h + f_height - images_h) // 2 + 1
-        padding_w = ((images_w - 1) * stride_w + f_width - images_w) // 2 + 1
-    elif padding == "valid":
-        padding_h, padding_w = (0, 0)
-    else:
-        padding_h, padding_w = padding
+    images_padded = np.pad(
+        images,
+        pad_width=((0, 0), (ph, ph), (pw, pw), (0, 0)),
+        mode='constant',
+        constant_values=0
+    )
+    out_h = (h + 2 * ph - kh) // sh + 1
+    out_w = (w + 2 * pw - kw) // sw + 1
+    output = np.zeros((m, out_h, out_w, nc))
 
-    c_height = (images.shape[1] + 2 * padding_h - f_height) // stride_h + 1
-    c_width = (images.shape[2] + 2 * padding_w - f_width) // stride_w + 1
-    pad_images = np.pad(images, (
-        (0, 0), (padding_h, padding_h),
-        (padding_w, padding_w), (0, 0)
-    ))
+    for y in range(out_h):
+        for x in range(out_w):
+            img_slice = images_padded[:, y*sh:y*sh+kh, x*sw:x*sw+kw, :]
+            output[:, y, x, :] = np.tensordot(img_slice, kernels, axes=([1,2,3], [0,1,2]))
 
-    convolved = np.zeros((c_images, c_height, c_width))
-    for row in range(c_height):
-        for col in range(c_width):
-            pad_ele = pad_images[:, row * stride_h:row * stride_h + f_height,
-                                 col * stride_w:col * stride_w + f_width]
-            sum_mul_ele = np.sum(pad_ele * kernel, axis=(1, 2, 3))
-            convolved[:, row, col] = sum_mul_ele
-    return convolved
+    return output
