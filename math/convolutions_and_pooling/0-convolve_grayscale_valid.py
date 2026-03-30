@@ -15,4 +15,4 @@ def convolve_grayscale_valid(images, kernel):
         for j in range(w - kw + 1):
             part = images[:, i:i + kh, j:j + kw] * kernel
             conv[:, i, j] = np.sum(part, axis=(1, 2))
-    return conv_imgs
+    return conv
