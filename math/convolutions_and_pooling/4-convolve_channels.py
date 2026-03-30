@@ -4,34 +4,33 @@ import numpy as np
 
 
 def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
-    """Convolution on Channels"""
-    m, h, w, c = images.shape
-    kh = kernel.shape[0]
-    kw = kernel.shape[1]
-    sh, sw = stride
+    """Convolve it"""
+    c_images, images_h, images_w, _ = images.shape
+    f_height = kernel.shape[0]
+    f_width = kernel.shape[1]
+    stride_h, stride_w = stride
 
     if padding == "same":
-        ph = ((h - 1) * sh + kh - h) // 2 + 1
-        pw = ((w - 1) * sw + kw - w) // 2 + 1
+        padding_h = ((images_h - 1) * stride_h + f_height - images_h) // 2 + 1
+        padding_w = ((images_w - 1) * stride_w + f_width - images_w) // 2 + 1
     elif padding == "valid":
-        ph, pw = (0, 0)
+        padding_h, padding_w = (0, 0)
     else:
-        ph, pw = padding
+        padding_h, padding_w = padding
 
-    h = (h + 2 * ph - kh) // sh + 1
-    w = (w + 2 * pw - kw) // sw + 1
-    pad = np.pad(images, (
-        (0, 0), (ph, ph),
-        (pw, pw), (0, 0)
-    ))
+    c_height = (images.shape[1] + 2 * padding_h - f_height) // stride_h + 1
+    c_width = (images.shape[2] + 2 * padding_w - f_width) // stride_w + 1
+    # np.pad works with a before_N and after_N parameter defined in a tuple
+    # that will add the selected pad at each dimension
+    pad_images = np.pad(images, ((0, 0), (padding_h, padding_h), (padding_w,
+                                                                  padding_w),
+                                 (0, 0)))
 
-    conv = np.zeros((m, h, w))
-    for i in range(h):
-        for j in range(w):
-            pad = pad[
-                :, i * sh:i * sh + kh,
-                j * sw:j * sw + kw
-            ]
-            mul = np.sum(pad * kernel, axis=(1, 2, 3))
-            conv[:, i, j] = mul
-    return conv
+    convolved = np.zeros((c_images, c_height, c_width))
+    for row in range(c_height):
+        for col in range(c_width):
+            pad_ele = pad_images[:, row * stride_h:row * stride_h + f_height,
+                                 col * stride_w:col * stride_w + f_width]
+            sum_mul_ele = np.sum(pad_ele * kernel, axis=(1, 2, 3))
+            convolved[:, row, col] = sum_mul_ele
+    return convolved
