@@ -20,8 +20,6 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
 
     c_height = (images.shape[1] + 2 * padding_h - f_height) // stride_h + 1
     c_width = (images.shape[2] + 2 * padding_w - f_width) // stride_w + 1
-    # np.pad works with a before_N and after_N parameter defined in a tuple
-    # that will add the selected pad at each dimension
     pad_images = np.pad(images, ((0, 0), (padding_h, padding_h), (padding_w,
                                                                   padding_w),
                                  (0, 0)))
