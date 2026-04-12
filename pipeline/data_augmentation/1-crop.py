@@ -2,6 +2,7 @@
 """1-crop.py"""
 import tensorflow as tf
 
+
 def crop_image(image, size):
     """Cropping aug"""
 

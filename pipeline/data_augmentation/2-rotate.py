@@ -2,6 +2,7 @@
 """2-rotate.py"""
 import tensorflow as tf
 
+
 def rotate_image(image):
     """Rotate aug"""
 
