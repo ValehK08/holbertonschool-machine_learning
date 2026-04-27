@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-""" 2-identity_block.py """
+""" 3-projection_block.py """
 from tensorflow import keras as K
 
 
 def projection_block(A_prev, filters, s=2):
-    """I-block"""
+    """P-block"""
 
     F11, F3, F12 = filters
     he_init = K.initializers.he_normal(seed=0)
