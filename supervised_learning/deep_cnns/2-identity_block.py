@@ -11,18 +11,24 @@ def identity_block(A_prev, filters):
 
     X_shortcut = A_prev
 
-    X = K.layers.Conv2D(filters=F11, kernel_size=(1, 1), strides=(1, 1),
-                      padding='valid', kernel_initializer=he_init)(A_prev)
+    X = K.layers.Conv2D(
+        filters=F11, kernel_size=(1, 1), strides=(1, 1),
+        padding='valid', kernel_initializer=he_init
+    )(A_prev)
     X = K.layers.BatchNormalization(axis=3)(X)
     X = K.layers.Activation('relu')(X)
 
-    X = K.layers.Conv2D(filters=F3, kernel_size=(3, 3), strides=(1, 1),
-                      padding='same', kernel_initializer=he_init)(X)
+    X = K.layers.Conv2D(
+        filters=F3, kernel_size=(3, 3), strides=(1, 1),
+        padding='same', kernel_initializer=he_init
+    )(X)
     X = K.layers.BatchNormalization(axis=3)(X)
     X = K.layers.Activation('relu')(X)
 
-    X = K.layers.Conv2D(filters=F12, kernel_size=(1, 1), strides=(1, 1),
-                      padding='valid', kernel_initializer=he_init)(X)
+    X = K.layers.Conv2D(
+        filters=F12, kernel_size=(1, 1), strides=(1, 1),
+        padding='valid', kernel_initializer=he_init
+    )(X)
     X = K.layers.BatchNormalization(axis=3)(X)
 
     X = K.layers.Add()([X, X_shortcut])
