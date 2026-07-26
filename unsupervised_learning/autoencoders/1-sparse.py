@@ -1,118 +1,42 @@
 #!/usr/bin/env python3
-"""autoencoder sparce"""
+""" This module provides a function that creates a sparse autoencoder. """
 
 import tensorflow.keras as keras
 
 
-def sparse(input_dims, hidden_layers, latent_dims, lambtha):
-    """
-    creates a sparse autoencoder
-    Args:
-        input_dims: integer containing the dimensions of the model input
-        hidden_layers: list containing the number of nodes for each hidden
-                       layer in the encoder, respectively
-                       hidden layers should be reversed for the decoder
-        latent_dims: integer containing the dimensions of the latent space
-                      representation
-        lambtha: regularization parameter used for L1 regularization on the
-                 encoded output
-    Returns: encoder, decoder, auto
-            encoder: the encoder model
-            decoder: the decoder model
-            auto: the full autoencoder model
+def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
+    """ Creates and returns a sparse autoencoder. """
 
-    """
-    L1 = keras.regularizers.l1(lambtha)
+    encoder_input = keras.layers.Input(shape=(input_dims,))
+    x = encoder_input
 
-    X_inputs = keras.Input(shape=(input_dims,))
+    for num_neurons in hidden_layers:
+        x = keras.layers.Dense(num_neurons, activation="relu")(x)
 
-    hidden_ly = keras.layers.Dense(units=hidden_layers[0], activation='relu')
-    Y_prev = hidden_ly(X_inputs)
-    for i in range(1, len(hidden_layers)):
-        hidden_ly = keras.layers.Dense(units=hidden_layers[i],
-                                       activation='relu')
-        Y_prev = hidden_ly(Y_prev)
-    latent_ly = keras.layers.Dense(units=latent_dims, activation='relu',
-                                   activity_regularizer=L1)
-    bottleneck = latent_ly(Y_prev)
-    encoder = keras.Model(X_inputs, bottleneck)
+    encoder_output = keras.layers.Dense(
+        latent_dims,
+        activation="relu",
+        activity_regularizer=keras.regularizers.l1(lambtha)
+    )(x)
 
-    X_decode = keras.Input(shape=(latent_dims,))
-    hidden_ly = keras.layers.Dense(units=hidden_layers[-1], activation='relu')
-    Y_prev = hidden_ly(X_decode)
-    for j in range(len(hidden_layers) - 2, -1, -1):
-        hidden_d = keras.layers.Dense(units=hidden_layers[j],
-                                      activation='relu')
-        Y_prev = hidden_d(Y_prev)
+    encoder = keras.models.Model(inputs=encoder_input, outputs=encoder_output)
 
-    last_layer = keras.layers.Dense(units=input_dims,
-                                    activation='sigmoid')
-    output = last_layer(Y_prev)
-    decoder = keras.Model(X_decode, output)
+    decoder_input = keras.layers.Input(shape=(latent_dims, ))
+    x = decoder_input
 
-    X_input = keras.Input(shape=(input_dims,))
-    e_output = encoder(X_input)
-    d_output = decoder(e_output)
-    autoencoder = keras.Model(X_input, d_output)
-    autoencoder.compile(loss='binary_crossentropy', optimizer='adam')
+    for num_neurons in reversed(hidden_layers):
+        x = keras.layers.Dense(num_neurons, activation="relu")(x)
 
-    return encoder, decoder, autoencoder
-#!/usr/bin/env python3
-"""autoencoder sparce"""
+    decoder_output = keras.layers.Dense(input_dims, activation="sigmoid")(x)
 
-import tensorflow.keras as keras
+    decoder = keras.models.Model(inputs=decoder_input, outputs=decoder_output)
 
+    auto_input = keras.layers.Input(shape=(input_dims,))
+    h = encoder(auto_input)
+    auto_output = decoder(h)
 
-def sparse(input_dims, hidden_layers, latent_dims, lambtha):
-    """
-    creates a sparse autoencoder
-    Args:
-        input_dims: integer containing the dimensions of the model input
-        hidden_layers: list containing the number of nodes for each hidden
-                       layer in the encoder, respectively
-                       hidden layers should be reversed for the decoder
-        latent_dims: integer containing the dimensions of the latent space
-                      representation
-        lambtha: regularization parameter used for L1 regularization on the
-                 encoded output
-    Returns: encoder, decoder, auto
-            encoder: the encoder model
-            decoder: the decoder model
-            auto: the full autoencoder model
+    auto = keras.models.Model(inputs=auto_input, outputs=auto_output)
 
-    """
-    L1 = keras.regularizers.l1(lambtha)
+    auto.compile(optimizer="adam", loss="binary_crossentropy")
 
-    X_inputs = keras.Input(shape=(input_dims,))
-
-    hidden_ly = keras.layers.Dense(units=hidden_layers[0], activation='relu')
-    Y_prev = hidden_ly(X_inputs)
-    for i in range(1, len(hidden_layers)):
-        hidden_ly = keras.layers.Dense(units=hidden_layers[i],
-                                       activation='relu')
-        Y_prev = hidden_ly(Y_prev)
-    latent_ly = keras.layers.Dense(units=latent_dims, activation='relu',
-                                   activity_regularizer=L1)
-    bottleneck = latent_ly(Y_prev)
-    encoder = keras.Model(X_inputs, bottleneck)
-
-    X_decode = keras.Input(shape=(latent_dims,))
-    hidden_ly = keras.layers.Dense(units=hidden_layers[-1], activation='relu')
-    Y_prev = hidden_ly(X_decode)
-    for j in range(len(hidden_layers) - 2, -1, -1):
-        hidden_d = keras.layers.Dense(units=hidden_layers[j],
-                                      activation='relu')
-        Y_prev = hidden_d(Y_prev)
-
-    last_layer = keras.layers.Dense(units=input_dims,
-                                    activation='sigmoid')
-    output = last_layer(Y_prev)
-    decoder = keras.Model(X_decode, output)
-
-    X_input = keras.Input(shape=(input_dims,))
-    e_output = encoder(X_input)
-    d_output = decoder(e_output)
-    autoencoder = keras.Model(X_input, d_output)
-    autoencoder.compile(loss='binary_crossentropy', optimizer='adam')
-
-    return encoder, decoder, autoencoder
+    return encoder, decoder, auto
