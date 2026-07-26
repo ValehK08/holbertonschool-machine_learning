@@ -47,4 +47,3 @@ class SelfAttention(tf.keras.layers.Layer):
         context = tf.reduce_sum(context, axis=1)
 
         return context, att_weights
-    

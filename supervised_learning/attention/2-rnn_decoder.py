@@ -67,4 +67,3 @@ class RNNDecoder(tf.keras.layers.Layer):
         y = self.F(new_outputs)
 
         return y, hidden_state
-    
